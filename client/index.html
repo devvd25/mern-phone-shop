@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phone Shop</title>
+    <script>
+      // Suppress Dialogflow Messenger internal errors
+      window.addEventListener('error', function(e) {
+        if (e.message && e.message.includes('HTMLElement')) {
+          e.stopImmediatePropagation();
+          e.preventDefault();
+        }
+      });
+    </script>
+    
+    <!-- Dialogflow Messenger -->
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <style>
+      df-messenger {
+        z-index: 999;
+        position: fixed;
+        --df-messenger-font-color: #000;
+        --df-messenger-font-family: Google Sans;
+        --df-messenger-chat-background: #f3f6fc;
+        --df-messenger-message-user-background: #d3e3fd;
+        --df-messenger-message-bot-background: #fff;
+        --df-messenger-button-titlebar-color: #1976d2;
+        --df-messenger-button-titlebar-font-color: #fff;
+        bottom: 16px;
+        right: 16px;
+      }
+      
+      /* Làm nổi bật icon chatbot */
+      df-messenger::part(chat-bubble-button) {
+        width: 70px;
+        height: 70px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: 3px solid #fff;
+      }
+      
+      df-messenger::part(chat-bubble-button):hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+      
+      /* Animation cho icon */
+      @keyframes pulse {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+      
+      df-messenger::part(chat-bubble-button) {
+        animation: pulse 2s ease-in-out infinite;
+      }
+      
+      /* Container chứa các nút chat */
+      .chat-buttons-container {
+        position: fixed;
+        bottom: 100px;
+        right: 16px;
+        z-index: 998;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      
+      /* Style chung cho nút chat */
+      .chat-button {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .chat-button::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+      
+      .chat-button:hover::before {
+        width: 100%;
+        height: 100%;
+      }
+      
+      .chat-button:hover {
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      }
+      
+      .chat-button img {
+        width: 35px;
+        height: 35px;
+        position: relative;
+        z-index: 1;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      }
+      
+      /* Nút Zalo */
+      .zalo-button {
+        background: linear-gradient(135deg, #0068ff 0%, #0180ff 100%);
+        animation: bounce 3s ease-in-out infinite;
+      }
+      
+      /* Nút Messenger */
+      .messenger-button {
+        background: linear-gradient(135deg, #00b2ff 0%, #006aff 100%);
+        animation: bounce 3s ease-in-out infinite 0.5s;
+      }
+      
+      /* Animation bounce */
+      @keyframes bounce {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      
+      /* Tooltip */
+      .chat-button::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        right: 70px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        font-family: 'Google Sans', sans-serif;
+      }
+      
+      .chat-button:hover::after {
+        opacity: 1;
+      }
+      
+      /* Responsive */
+      @media (max-width: 768px) {
+        .chat-buttons-container {
+          bottom: 90px;
+          right: 10px;
+        }
+        .chat-button {
+          width: 50px;
+          height: 50px;
+        }
+        .chat-button img {
+          width: 28px;
+          height: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Chat Buttons Container -->
+    <div class="chat-buttons-container">
+      <!-- Zalo Button -->
+      <a 
+        href="https://zalo.me/0985702931" 
+        target="_blank" 
+        class="chat-button zalo-button"
+        data-tooltip="Chat Zalo">
+        <img src="https://page.widget.zalo.me/static/images/2.0/Logo.svg" alt="Zalo">
+      </a>
+      
+      <!-- Messenger Button -->
+      <a 
+        href="https://m.me/user.devvd" 
+        target="_blank" 
+        class="chat-button messenger-button"
+        data-tooltip="Chat Messenger">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+      </a>
+    </div>
+    
+    <!-- Dialogflow Messenger Widget -->
+    <df-messenger
+      intent="WELCOME"
+      chat-title="web-dien-thoai"
+      agent-id="da8d41b1-4066-4c22-9782-958bd4d49d6f"
+      language-code="vi"
+      chat-icon="http://localhost:5000/uploads/chatbot-icon.png">
+    </df-messenger>
+  </body>
+</html>
