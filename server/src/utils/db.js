@@ -7,3 +7,4 @@ export async function connectDB() {
   await mongoose.connect(uri);
   console.log('MongoDB connected');
 }
+// commit
