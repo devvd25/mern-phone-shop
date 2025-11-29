@@ -60,3 +60,4 @@ export async function clearCart(req, res) {
   await cart.save();
   res.json(cart);
 }
+// #sourceMappingURL=cartController.js.map
