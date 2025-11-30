@@ -35,3 +35,4 @@ userSchema.methods.matchPassword = async function(entered) {
 
 const User = mongoose.model('User', userSchema);
 export default User;
+// làm việc với user model ở đây
