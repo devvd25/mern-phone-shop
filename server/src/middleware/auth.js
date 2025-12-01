@@ -3,7 +3,7 @@ import User from '../models/User.js';
 
 export async function protect(req, res, next) {
   try {
-    const cookieName = process.env.COOKIE_NAME || 'jwt';
+    const cookieName = process.env.COOKIE_NAME || 'jwt'; // Dung de xac nhan token tu cookie
     const token = req.cookies[cookieName];
     if (!token) return res.status(401).json({ message: 'Chưa đăng nhập' });
     const decoded = verifyToken(token);
