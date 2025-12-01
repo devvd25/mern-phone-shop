@@ -20,3 +20,4 @@ router.put('/admin/:id', protect, isAdmin, updateBanner);
 router.delete('/admin/:id', protect, isAdmin, deleteBanner);
 
 export default router;
+//commit
