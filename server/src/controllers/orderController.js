@@ -102,3 +102,4 @@ export async function deleteOrder(req, res) {
   await Order.findByIdAndDelete(req.params.id);
   res.json({ message: 'Đã xóa đơn hàng' });
 }
+// #sourceMappingURL=orderController.js.map
