@@ -27,3 +27,4 @@ productSchema.index({ category: 1, brand: 1 });
 
 const Product = mongoose.model('Product', productSchema);
 export default Product;
+// làm việc với product model ở đây

@@ -160,7 +160,7 @@ export async function resetPassword(req, res) {
     
     await user.save();
 
-    res.json({ message: 'Đặt lại mật khẩu thành công!' });
+    res.json({ message: 'Đặt lại mật khẩu thành công!' }); //
   } catch (error) {
     console.error('Reset password error:', error);
     res.status(500).json({ message: 'Có lỗi xảy ra. Vui lòng thử lại sau.' });
