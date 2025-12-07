@@ -4,7 +4,7 @@ import { connectDB } from './utils/db.js';
 import Product from './models/Product.js';
 
 await connectDB();
-
+// Dữ liệu mẫu để seed vào DB
 const demo = [
   {
     name: 'iPhone 15 Pro 128GB',
