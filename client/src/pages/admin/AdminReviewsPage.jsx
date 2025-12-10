@@ -6,7 +6,7 @@ export default function AdminReviewsPage() {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ total: 0, avgRating: 0 });
-
+//
   const loadReviews = async () => {
     try {
       const { data } = await api.get('/admin/reviews');
