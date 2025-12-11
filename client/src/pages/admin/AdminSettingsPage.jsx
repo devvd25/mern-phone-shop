@@ -16,7 +16,7 @@ export default function AdminSettingsPage() {
   const [uploading, setUploading] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
 
-  // Load settings from localStorage or API
+  /// Load settings from localStorage or API
   useEffect(() => {
     const saved = localStorage.getItem('site-settings');
     if (saved) {
