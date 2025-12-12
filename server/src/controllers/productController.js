@@ -33,7 +33,7 @@ export async function listProducts(req, res) {
       { description: contains }
     ];
   }
-  if (category) filter.category = category;
+  if (category) filter.category = category; // exact match
   if (brand) filter.brand = brand;
   if (minPrice !== undefined || maxPrice !== undefined) {
     filter.price = {};
@@ -46,7 +46,7 @@ export async function listProducts(req, res) {
     Product.countDocuments(filter),
     Product.find(filter).sort(sort).skip(skip).limit(limit)
   ]);
-
+  // Return paginated results
   res.json({
     page, pages: Math.ceil(total / limit), total, products
   });

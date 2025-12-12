@@ -9,7 +9,7 @@ import {
   validateProduct,
 } from '../controllers/productController.js';
 import { protect, isAdmin } from '../middleware/auth.js';
-
+// tạo router
 const router = express.Router();
 
 // /api/products
