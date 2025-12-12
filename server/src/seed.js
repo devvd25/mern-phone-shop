@@ -3,8 +3,9 @@ dotenv.config();
 import { connectDB } from './utils/db.js';
 import Product from './models/Product.js';
 
+// Kết nối đến DB
 await connectDB();
-// Dữ liệu mẫu để seed vào DB
+// Dữ liệu mẫu để seed vào DB,
 const demo = [
   {
     name: 'iPhone 15 Pro 128GB',
