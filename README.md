@@ -1,326 +1,410 @@
-# 📱 MERN Phone Shop - Hướng dẫn cài đặt
+# 📖 HƯỚNG DẪN CHẠY DỰ ÁN - MERN PHONE SHOP
 
-Website bán điện thoại sử dụng MERN Stack (MongoDB, Express, React, Node.js)
+## 🎯 Dành cho người mới bắt đầu
 
-## 🚀 Yêu cầu hệ thống
+Hướng dẫn này sẽ giúp bạn chạy được dự án từ đầu đến cuối một cách đơn giản nhất.
 
-- **Node.js** v20 trở lên ([tải tại đây](https://nodejs.org/))
-- **MongoDB** v7 trở lên (hoặc sử dụng MongoDB Atlas)
-- **Git** (tùy chọn)
+---
 
-## 📦 Cài đặt nhanh
+## 📋 YÊU CẦU HỆ THỐNG
 
-### Bước 1: Clone/Tải project
+Trước khi bắt đầu, hãy cài đặt các phần mềm sau:
+
+### 1. Node.js (Bắt buộc)
+- **Phiên bản**: Node.js 20.x trở lên
+- **Tải về**: https://nodejs.org/
+- **Kiểm tra**: Mở terminal và chạy:
+  ```bash
+  node --version
+  npm --version
+  ```
+  Nếu hiển thị số phiên bản là OK ✅
+
+### 2. MongoDB (Bắt buộc)
+- **Tải về**: https://www.mongodb.com/try/download/community
+- **Hoặc sử dụng MongoDB Atlas** (miễn phí): https://www.mongodb.com/cloud/atlas
+- **Kiểm tra**: Chạy lệnh sau để khởi động MongoDB:
+  ```bash
+  mongod
+  ```
+  Hoặc kiểm tra MongoDB service đang chạy
+
+### 3. Git (Tùy chọn)
+- **Tải về**: https://git-scm.com/downloads
+- Dùng để clone dự án
+
+### 4. Visual Studio Code (Khuyến nghị)
+- **Tải về**: https://code.visualstudio.com/
+- Editor tốt nhất cho dự án MERN
+
+---
+
+## 🚀 BƯỚC 1: TẢI DỰ ÁN
+
+### Cách 1: Tải file ZIP
+1. Tải file ZIP của dự án
+2. Giải nén vào thư mục bạn muốn
+3. Mở terminal tại thư mục đó
+
+### Cách 2: Clone qua Git
 ```bash
-git clone <repository-url>
+git clone <link-repository>
 cd mern-phone-shop-starter
 ```
 
-### Bước 2: Cài đặt dependencies
+---
 
-**Cài đặt server:**
+## 📦 BƯỚC 2: CÀI ĐẶT CÁC PACKAGE
+
+Dự án có 2 phần: **Backend** (server) và **Frontend** (client). Cần cài đặt package cho cả 2.
+
+### 2.1. Cài đặt Backend
+```bash
+# Di chuyển vào thư mục server
+cd server
+
+# Cài đặt tất cả package
+npm install
+
+# Chờ đợi cho đến khi hoàn tất
+```
+
+### 2.2. Cài đặt Frontend
+```bash
+# Quay lại thư mục gốc
+cd ..
+
+# Di chuyển vào thư mục client
+cd client
+
+# Cài đặt tất cả package
+npm install
+
+# Chờ đợi cho đến khi hoàn tất
+```
+
+**⏱️ Lưu ý**: Quá trình cài đặt có thể mất 5-10 phút tùy tốc độ mạng.
+
+---
+
+## ⚙️ BƯỚC 3: CẤU HÌNH
+
+### 3.1. Cấu hình Backend
+
+1. **Tạo file `.env` trong thư mục `server/`**:
+   ```bash
+   cd server
+   ```
+
+2. **Tạo file mới tên là `.env`** và thêm nội dung sau:
+   ```env
+   # Cổng chạy server
+   PORT=5000
+
+   # MongoDB Connection
+   MONGO_URI=mongodb://localhost:27017/phone-shop
+
+   # JWT Secret (mã bí mật cho token)
+   JWT_SECRET=your-super-secret-key-change-this-in-production
+
+   # Email Configuration (Nodemailer)
+   EMAIL_USER=your-email@gmail.com
+   EMAIL_PASS=your-app-password
+
+   # Node Environment
+   NODE_ENV=development
+   ```
+
+3. **Giải thích các biến**:
+   - `PORT`: Cổng chạy backend (mặc định 5000)
+   - `MONGO_URI`: Link kết nối MongoDB
+     - Nếu dùng local: `mongodb://localhost:27017/phone-shop`
+     - Nếu dùng Atlas: `mongodb+srv://username:password@cluster.mongodb.net/phone-shop`
+   - `JWT_SECRET`: Mã bí mật bất kỳ (càng phức tạp càng tốt)
+   - `EMAIL_USER` & `EMAIL_PASS`: Email để gửi thông báo (tùy chọn)
+
+**🔐 Lưu ý về Email**:
+- Nếu dùng Gmail, cần tạo App Password: https://myaccount.google.com/apppasswords
+- Nếu không cần chức năng email, có thể bỏ qua 2 dòng này
+
+### 3.2. Cấu hình Frontend
+
+1. **Tạo file `.env` trong thư mục `client/`**:
+   ```bash
+   cd ../client
+   ```
+
+2. **Tạo file mới tên là `.env`** và thêm:
+   ```env
+   VITE_API_URL=http://localhost:5000/api
+   ```
+
+3. **Giải thích**:
+   - `VITE_API_URL`: Link API backend mà frontend sẽ gọi đến
+
+---
+
+## 🗃️ BƯỚC 4: KHỞI TẠO DỮ LIỆU MẪU
+
+Để có dữ liệu test (sản phẩm, user admin...), chạy lệnh seed:
+
+```bash
+# Di chuyển vào thư mục server (nếu chưa có)
+cd server
+
+# Chạy seed data
+npm run seed
+```
+
+**✅ Nếu thành công**, bạn sẽ thấy:
+- ✅ Database connected
+- ✅ Data cleared
+- ✅ Admin created
+- ✅ Products created
+- ✅ Sample orders created
+
+**📝 Thông tin tài khoản mặc định**:
+- **Admin**:
+  - Email: `admin@phoneshop.com`
+  - Password: `admin123`
+- **User thường**:
+  - Email: `user@example.com`
+  - Password: `user123`
+
+---
+
+## ▶️ BƯỚC 5: CHẠY DỰ ÁN
+
+### Cách 1: Chạy thủ công (2 terminal)
+
+#### Terminal 1 - Backend:
+```bash
+# Di chuyển vào thư mục server
+cd server
+
+# Chạy server
+npm run dev
+```
+**✅ Thành công khi thấy**: `Server running on port 5000` và `MongoDB Connected`
+
+#### Terminal 2 - Frontend:
+```bash
+# Mở terminal mới
+# Di chuyển vào thư mục client
+cd client
+
+# Chạy frontend
+npm run dev
+```
+**✅ Thành công khi thấy**: `Local: http://localhost:5173/`
+
+### Cách 2: Chạy với Docker (Nếu có Docker)
+```bash
+# Chạy từ thư mục gốc
+docker-compose up
+```
+
+---
+
+## 🌐 BƯỚC 6: MỞ TRÌNH DUYỆT
+
+1. Mở trình duyệt (Chrome, Firefox, Edge...)
+2. Truy cập: **http://localhost:5173**
+3. Bạn sẽ thấy trang chủ Phone Shop! 🎉
+
+---
+
+## 👤 BƯỚC 7: ĐĂNG NHẬP VÀ THỰC HIỆN THAO TÁC
+
+### Đăng nhập với tài khoản Admin:
+1. Click **"Đăng nhập"** trên header
+2. Nhập:
+   - Email: `admin@phoneshop.com`
+   - Password: `admin123`
+3. Sau khi đăng nhập, click vào avatar → **Admin Dashboard**
+
+### Các chức năng có thể test:
+- ✅ Xem danh sách sản phẩm
+- ✅ Thêm sản phẩm vào giỏ hàng
+- ✅ Thanh toán (nhập mã voucher nếu có)
+- ✅ Xem đơn hàng của mình
+- ✅ **Admin**: Quản lý sản phẩm, đơn hàng, user, voucher, settings
+
+---
+
+## 🧪 BƯỚC 8: TEST API VỚI POSTMAN (Tùy chọn)
+
+Nếu bạn muốn test API trực tiếp:
+
+1. **Tải Postman**: https://www.postman.com/downloads/
+2. **Import collection**:
+   - Mở Postman
+   - Click **Import**
+   - Chọn file `MERN_Phone_Shop_API.postman_collection.json`
+3. **Chạy các request**:
+   - Auth → Login
+   - Products → Get All Products
+   - Vouchers → Validate Voucher
+   - ...và nhiều endpoint khác
+
+**📚 Chi tiết**: Xem file `PROJECT_GUIDE.md` phần "Testing với Postman"
+
+---
+
+## ❗ XỬ LÝ LỖI THƯỜNG GẶP
+
+### Lỗi 1: `Cannot find module`
+**Nguyên nhân**: Chưa cài đặt package
+**Giải pháp**:
 ```bash
 cd server
 npm install
-```
-
-**Cài đặt client:**
-```bash
 cd ../client
 npm install
 ```
 
-### Bước 3: Cấu hình MongoDB
+### Lỗi 2: `ECONNREFUSED MongoDB`
+**Nguyên nhân**: MongoDB chưa chạy
+**Giải pháp**:
+- Windows: Khởi động MongoDB service trong Services
+- Mac/Linux: Chạy `mongod` trong terminal
+- Hoặc dùng MongoDB Atlas (cloud)
 
-Mở file `server/src/utils/db.js` và kiểm tra connection string:
-```javascript
-const uri = 'mongodb://127.0.0.1:27017/phone_shop';
-```
+### Lỗi 3: `Port 5000 already in use`
+**Nguyên nhân**: Cổng 5000 đã được sử dụng bởi app khác
+**Giải pháp**:
+1. Đổi PORT trong file `server/.env` (ví dụ: 5001)
+2. Cập nhật `VITE_API_URL` trong `client/.env` thành `http://localhost:5001/api`
 
-Đảm bảo MongoDB đang chạy trên máy tính của bạn.
+### Lỗi 4: `JWT malformed` hoặc lỗi xác thực
+**Nguyên nhân**: Token không đúng hoặc đã hết hạn
+**Giải pháp**:
+- Đăng xuất và đăng nhập lại
+- Xóa localStorage: F12 → Application → Local Storage → Clear
 
-### Bước 4: Chạy ứng dụng
+### Lỗi 5: Frontend không kết nối được Backend
+**Nguyên nhân**: Backend chưa chạy hoặc URL sai
+**Giải pháp**:
+1. Kiểm tra backend đang chạy tại `http://localhost:5000`
+2. Kiểm tra file `client/.env` có đúng `VITE_API_URL=http://localhost:5000/api`
+3. Restart frontend sau khi sửa `.env`
 
-**Mở terminal thứ nhất - Chạy Server:**
+### Lỗi 6: Không thấy dữ liệu sản phẩm
+**Nguyên nhân**: Chưa chạy seed data
+**Giải pháp**:
 ```bash
 cd server
-npm run dev
-```
-Server sẽ chạy tại: `http://localhost:5000`
-
-**Mở terminal thứ hai - Chạy Client:**
-```bash
-cd client
-npm run dev
-```
-Client sẽ chạy tại: `http://localhost:5173`
-
-### Bước 5: Import dữ liệu mẫu (tùy chọn)
-
-```bash
-cd server
-node src/seed.js
+npm run seed
 ```
 
-## 🎯 Tài khoản mặc định
+---
 
-Sau khi seed dữ liệu, sử dụng tài khoản admin:
-- **Email:** admin@example.com
-- **Password:** admin123
-
-## 📚 Cấu trúc thư mục
+## 📁 CẤU TRÚC DỰ ÁN CƠ BẢN
 
 ```
 mern-phone-shop-starter/
-├── client/          # React frontend (Vite)
+│
+├── client/                 # Frontend (React + Vite)
 │   ├── src/
-│   │   ├── pages/   # Các trang
-│   │   ├── components/  # Components
-│   │   └── api/     # Axios config
+│   │   ├── components/    # Các component tái sử dụng
+│   │   ├── pages/         # Các trang
+│   │   ├── api/           # Cấu hình API (axios)
+│   │   ├── slices/        # Redux slices
+│   │   └── App.jsx        # Component chính
+│   ├── .env               # Biến môi trường frontend
 │   └── package.json
 │
-├── server/          # Node.js backend (Express)
+├── server/                 # Backend (Node.js + Express)
 │   ├── src/
-│   │   ├── controllers/  # Business logic
-│   │   ├── routes/       # API routes
-│   │   ├── models/       # MongoDB models
-│   │   └── middleware/   # Auth middleware
+│   │   ├── controllers/   # Logic xử lý request
+│   │   ├── models/        # Schema MongoDB
+│   │   ├── routes/        # Định nghĩa routes
+│   │   ├── middleware/    # Auth, error handling
+│   │   └── utils/         # Helpers
+│   ├── .env               # Biến môi trường backend
 │   └── package.json
 │
-└── README.md
-```
-
-## 🔧 Các lệnh hữu ích
-
-### Server
-- `npm run dev` - Chạy server với nodemon (auto-restart)
-- `npm start` - Chạy server production
-- `node src/seed.js` - Import dữ liệu mẫu
-
-### Client
-- `npm run dev` - Chạy development server
-- `npm run build` - Build cho production
-- `npm run preview` - Preview bản build
-
-## 🌟 Tính năng chính
-
-✅ Đăng ký/Đăng nhập người dùng  
-✅ Quản lý sản phẩm (CRUD)  
-✅ Giỏ hàng & Đặt hàng  
-✅ Đánh giá sản phẩm  
-✅ Admin Dashboard  
-✅ Tìm kiếm & Lọc sản phẩm theo danh mục/thương hiệu  
-✅ Chatbot Dialogflow  
-✅ Chat Zalo/Messenger  
-✅ Upload logo tùy chỉnh  
-
-## ❓ Xử lý lỗi thường gặp
-
-**Lỗi: Cannot connect to MongoDB**
-- Đảm bảo MongoDB đang chạy: `mongod`
-- Kiểm tra connection string trong `server/src/utils/db.js`
-
-**Lỗi: Port already in use**
-- Server: Đổi port trong `server/src/server.js`
-- Client: Đổi port trong `client/vite.config.js`
-
-**Lỗi: Module not found**
-- Chạy lại `npm install` trong thư mục tương ứng
-
----
-
-## 🌐 Deploy lên Production
-
-### Phương án 1: Deploy lên Render (Miễn phí) - Khuyên dùng
-
-**1. Chuẩn bị MongoDB Atlas (Database Cloud)**
-
-Đăng ký tài khoản miễn phí tại [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register):
-- Tạo Cluster mới (chọn Free tier)
-- Tạo Database User (username + password)
-- Whitelist IP: `0.0.0.0/0` (cho phép mọi IP)
-- Lấy Connection String: `mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/phone_shop`
-
-**2. Deploy Backend lên Render**
-
-Truy cập [Render.com](https://render.com) và đăng ký tài khoản:
-- Click **"New +" → "Web Service"**
-- Connect GitHub repo hoặc deploy từ Public Git
-- Cấu hình:
-  - **Name:** `phone-shop-api`
-  - **Root Directory:** `server`
-  - **Environment:** `Node`
-  - **Build Command:** `npm install`
-  - **Start Command:** `npm start`
-  - **Instance Type:** `Free`
-- Thêm Environment Variables:
-  - `MONGODB_URI`: Connection string từ MongoDB Atlas
-  - `JWT_SECRET`: `your-secret-key-here`
-  - `CLIENT_URL`: `https://your-frontend-url.vercel.app`
-- Click **"Create Web Service"**
-- Lưu lại URL backend: `https://phone-shop-api.onrender.com`
-
-**3. Deploy Frontend lên Vercel**
-
-Truy cập [Vercel.com](https://vercel.com) và đăng ký:
-- Click **"Add New Project"**
-- Import GitHub repository
-- Cấu hình:
-  - **Root Directory:** `client`
-  - **Framework Preset:** `Vite`
-  - **Build Command:** `npm run build`
-  - **Output Directory:** `dist`
-- Environment Variables:
-  - `VITE_API_URL`: `https://phone-shop-api.onrender.com/api`
-- Click **"Deploy"**
-- Lưu lại URL: `https://your-app.vercel.app`
-
-**4. Cập nhật CORS trong Backend**
-
-Mở `server/src/app.js` và cập nhật:
-```javascript
-const corsOptions = {
-  origin: 'https://your-app.vercel.app',
-  credentials: true
-};
-```
-
-**5. Cập nhật API URL trong Frontend**
-
-Mở `client/src/api/axios.js`:
-```javascript
-const api = axios.create({
-  baseURL: 'https://phone-shop-api.onrender.com/api',
-  withCredentials: true
-});
-```
-
-**6. Import dữ liệu vào MongoDB Atlas**
-
-Sử dụng MongoDB Compass hoặc mongoimport:
-```bash
-mongoimport --uri "mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/phone_shop" --collection products --file products.json --jsonArray
+├── PROJECT_GUIDE.md        # Hướng dẫn chi tiết dự án
+├── FEATURES.md             # Tài liệu tính năng
+└── MERN_Phone_Shop_API.postman_collection.json
 ```
 
 ---
 
-### Phương án 2: Deploy lên VPS (Server riêng)
+## 🎓 TÀI LIỆU THAM KHẢO
 
-**Yêu cầu:**
-- VPS Ubuntu 22.04 (có thể thuê tại DigitalOcean, Vultr, AWS EC2)
-- Domain name (tùy chọn)
-
-**Bước 1: Setup VPS**
-
-```bash
-# SSH vào VPS
-ssh root@your-vps-ip
-
-# Cập nhật hệ thống
-apt update && apt upgrade -y
-
-# Cài Node.js
-curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-apt install -y nodejs
-
-# Cài MongoDB
-wget -qO - https://www.mongodb.org/static/pgp/server-7.0.asc | apt-key add -
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-7.0.list
-apt update
-apt install -y mongodb-org
-systemctl start mongod
-systemctl enable mongod
-
-# Cài Nginx
-apt install -y nginx
-
-# Cài PM2 (Process Manager)
-npm install -g pm2
-```
-
-**Bước 2: Upload code lên VPS**
-
-```bash
-# Trên máy local
-scp -r mern-phone-shop-starter root@your-vps-ip:/var/www/
-```
-
-**Bước 3: Cài đặt và chạy Backend**
-
-```bash
-cd /var/www/mern-phone-shop-starter/server
-npm install
-npm run build  # Nếu có TypeScript
-pm2 start src/server.js --name phone-shop-api
-pm2 save
-pm2 startup
-```
-
-**Bước 4: Build và deploy Frontend**
-
-```bash
-cd /var/www/mern-phone-shop-starter/client
-npm install
-npm run build
-
-# Copy build files sang Nginx
-cp -r dist/* /var/www/html/
-```
-
-**Bước 5: Cấu hình Nginx**
-
-Tạo file `/etc/nginx/sites-available/phone-shop`:
-```nginx
-server {
-    listen 80;
-    server_name your-domain.com;
-
-    # Frontend
-    location / {
-        root /var/www/html;
-        try_files $uri $uri/ /index.html;
-    }
-
-    # Backend API
-    location /api {
-        proxy_pass http://localhost:5000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-```
-
-```bash
-# Enable site
-ln -s /etc/nginx/sites-available/phone-shop /etc/nginx/sites-enabled/
-nginx -t
-systemctl restart nginx
-```
-
-**Bước 6: Cài SSL (HTTPS) - Tùy chọn**
-
-```bash
-apt install -y certbot python3-certbot-nginx
-certbot --nginx -d your-domain.com
-```
+- **PROJECT_GUIDE.md**: Hướng dẫn đầy đủ về cấu trúc dự án, API endpoints, team
+- **FEATURES.md**: Chi tiết các tính năng và contribution
+- **README.md**: Thông tin tổng quan dự án
 
 ---
 
-### Phương án 3: Deploy nhanh với Railway.app
+## 💡 TIPS CHO NGƯỜI MỚI
 
-**1. Đăng ký Railway.app** ([railway.app](https://railway.app))
+### 1. Luôn kiểm tra terminal
+- Backend terminal phải hiển thị "Server running" và "MongoDB Connected"
+- Frontend terminal phải hiển thị "Local: http://localhost:5173"
 
-**2. Deploy Backend:**
-- Click "New Project" → "Deploy from GitHub repo"
-- Chọn folder `server`
-- Railway tự động detect và deploy
-- Add Environment Variables (MongoDB URI, JWT_SECRET)
-- Lấy URL backend
+### 2. Khi gặp lỗi
+- Đọc kỹ thông báo lỗi trong terminal
+- Google lỗi đó (copy paste thông báo)
+- Kiểm tra file `.env` có đầy đủ không
 
-**3. Deploy Frontend:**
-- New Project → Deploy folder `client`
-- Add Environment Variable: `VITE_API_URL`
-- Deploy
+### 3. Khi thay đổi code
+- **Backend**: Server tự restart (nodemon)
+- **Frontend**: Trang tự reload (Vite HMR)
+- **File .env**: Phải restart lại server/client thủ công
+
+### 4. Sử dụng DevTools
+- F12 để mở Chrome DevTools
+- Tab Console: Xem lỗi JavaScript
+- Tab Network: Xem các API request
+- Tab Application: Xem localStorage, cookies
+
+### 5. Học thêm
+- **React**: https://react.dev/
+- **Express**: https://expressjs.com/
+- **MongoDB**: https://docs.mongodb.com/
+- **Redux**: https://redux-toolkit.js.org/
+
+---
+
+## 🆘 HỖ TRỢ
+
+Nếu gặp vấn đề không giải quyết được:
+
+1. **Kiểm tra lại từng bước** trong guide này
+2. **Xem logs** trong terminal (backend và frontend)
+3. **Google lỗi** cụ thể
+4. **Liên hệ** team lead hoặc người hướng dẫn
+
+---
+
+## ✅ CHECKLIST HOÀN THÀNH
+
+Đánh dấu ✅ khi hoàn thành:
+
+- [ ] Đã cài đặt Node.js và MongoDB
+- [ ] Đã clone/tải dự án về
+- [ ] Đã chạy `npm install` cho cả server và client
+- [ ] Đã tạo file `.env` cho cả 2 phần
+- [ ] Đã chạy `npm run seed` thành công
+- [ ] Backend đang chạy tại port 5000
+- [ ] Frontend đang chạy tại port 5173
+- [ ] Đã mở được trang web trên trình duyệt
+- [ ] Đã đăng nhập thành công
+- [ ] Đã test các chức năng cơ bản
+
+---
+
+## 🎉 CHÚC MỪNG!
+
+Bạn đã chạy thành công dự án MERN Phone Shop! 🚀
+
+Giờ bạn có thể:
+- Khám phá code
+- Thêm tính năng mới
+- Test các API
+- Học cách MERN stack hoạt động
+
+**Happy Coding! 💻**
