@@ -1,4 +1,4 @@
-#### **DEV 1 - Công Vũ - FRONTEND CHÍNH + CORE** (BẠN - 26 files) ⭐
+#### **DEV 1 - Công Vũ - FRONTEND CHÍNH + CORE** (26 files) ⭐
 ```bash
 # Setup project
 git add client/package.json client/vite.config.js client/index.html client/src/main.jsx
