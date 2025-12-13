@@ -56,3 +56,4 @@ export async function getAllBannersAdmin(req, res) {
     res.status(500).json({ message: error.message });
   }
 }
+//commit
