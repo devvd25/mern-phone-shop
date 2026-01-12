@@ -6,7 +6,7 @@ import {
   deleteReview, 
   getAllReviews 
 } from '../controllers/reviewController.js';
-
+// tạo router
 const router = express.Router();
 
 // User routes
